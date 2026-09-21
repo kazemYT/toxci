@@ -238,9 +238,6 @@ bool Sakura::Menu::Widgets::Checkbox(const char* label, float* v)
 	const ImRect check_bb(ImVec2(pos.x, pos.y + (row_height - square_sz) * 0.5f), ImVec2(pos.x + square_sz, pos.y + (row_height + square_sz) * 0.5f));
 
 
-	const ImU32 border = ImColor(25, 25, 25, Sakura::Menu::currentAlphaFade);
-	window->DrawList->AddRectFilled(check_bb.Min, check_bb.Max, ImColor(24, 24, 24, Sakura::Menu::currentAlphaFade));
-	window->DrawList->AddRect(check_bb.Min, check_bb.Max, border);
 	if (*v)
 	{
 		window->DrawList->AddRectFilledMultiColor(check_bb.Min, check_bb.Max,

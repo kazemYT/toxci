@@ -989,30 +989,14 @@ void DrawMenuWindow()
 		ImVec2 pos = ImGui::GetWindowPos();
 
 		// Reference-inspired compact dark menu: a thin tab bar, flat panels and cyan accents.
-		const ImU32 window_top = ImColor(25, 25, 25, Sakura::Menu::currentAlphaFade);
-		const ImU32 window_bottom = ImColor(20, 20, 20, Sakura::Menu::currentAlphaFade);
-		const ImU32 chrome_top = ImColor(40, 40, 40, Sakura::Menu::currentAlphaFade);
-		const ImU32 chrome_bottom = ImColor(31, 31, 31, Sakura::Menu::currentAlphaFade);
-		const ImU32 panel_top = ImColor(31, 31, 31, Sakura::Menu::currentAlphaFade);
-		const ImU32 panel_bottom = ImColor(27, 27, 27, Sakura::Menu::currentAlphaFade);
-		const ImU32 accent_line = ImColor(55, 101, 124, Sakura::Menu::currentAlphaFade);
-
-		draw->AddRectFilledMultiColor(pos, { pos.x + 640, pos.y + 420 }, window_top, window_top, window_bottom, window_bottom);
-		draw->AddRectFilledMultiColor({ pos.x, pos.y }, { pos.x + 640, pos.y + 32 }, chrome_top, chrome_top, chrome_bottom, chrome_bottom);
-		draw->AddLine({ pos.x, pos.y + 32 }, { pos.x + 640, pos.y + 32 }, accent_line);
-		draw->AddRectFilled({ pos.x + 10, pos.y + 44 }, { pos.x + 154, pos.y + 392 }, ImColor(29, 29, 29, Sakura::Menu::currentAlphaFade));
-		draw->AddRectFilled({ pos.x + 164, pos.y + 44 }, { pos.x + 630, pos.y + 392 }, ImColor(29, 29, 29, Sakura::Menu::currentAlphaFade));
-		draw->AddRectFilledMultiColor({ pos.x + 11, pos.y + 45 }, { pos.x + 153, pos.y + 68 }, panel_top, panel_top, panel_bottom, panel_bottom);
-		draw->AddRectFilledMultiColor({ pos.x + 165, pos.y + 45 }, { pos.x + 629, pos.y + 68 }, panel_top, panel_top, panel_bottom, panel_bottom);
-		draw->AddLine({ pos.x + 11, pos.y + 68 }, { pos.x + 153, pos.y + 68 }, accent_line);
-		draw->AddLine({ pos.x + 165, pos.y + 68 }, { pos.x + 629, pos.y + 68 }, accent_line);
-		draw->AddText({ pos.x + 18, pos.y + 51 }, ImColor(237, 237, 237, Sakura::Menu::currentAlphaFade), "SECTIONS");
-		draw->AddText({ pos.x + 172, pos.y + 51 }, ImColor(237, 237, 237, Sakura::Menu::currentAlphaFade), "SETTINGS");
-		draw->AddRectFilledMultiColor({ pos.x, pos.y + 396 }, { pos.x + 640, pos.y + 420 }, chrome_top, chrome_top, chrome_bottom, chrome_bottom);
-		draw->AddLine({ pos.x, pos.y + 396 }, { pos.x + 640, pos.y + 396 }, accent_line);
-		draw->AddRect({ pos.x, pos.y }, { pos.x + 640, pos.y + 420 }, ImColor(16, 16, 16, Sakura::Menu::currentAlphaFade));
-		draw->AddText({ pos.x + 8, pos.y + 402 }, ImColor(241, 241, 241, Sakura::Menu::currentAlphaFade), "sakura");
-		draw->AddText({ pos.x + 620 - privateBuildCalculated.x, pos.y + 402 }, ImColor(241, 241, 241, Sakura::Menu::currentAlphaFade), "private build");
+		draw->AddRectFilled(pos, { pos.x + 640, pos.y + 420 }, ImColor(20, 23, 26, Sakura::Menu::currentAlphaFade));
+		draw->AddRectFilled({ pos.x, pos.y }, { pos.x + 640, pos.y + 32 }, ImColor(30, 34, 38, Sakura::Menu::currentAlphaFade));
+		draw->AddLine({ pos.x, pos.y + 32 }, { pos.x + 640, pos.y + 32 }, ImColor(65, 75, 82, Sakura::Menu::currentAlphaFade));
+		draw->AddRectFilled({ pos.x + 10, pos.y + 44 }, { pos.x + 154, pos.y + 392 }, ImColor(25, 29, 33, Sakura::Menu::currentAlphaFade));
+		draw->AddRectFilled({ pos.x + 164, pos.y + 44 }, { pos.x + 630, pos.y + 392 }, ImColor(25, 29, 33, Sakura::Menu::currentAlphaFade));
+		draw->AddRect({ pos.x, pos.y }, { pos.x + 640, pos.y + 420 }, ImColor(55, 64, 70, Sakura::Menu::currentAlphaFade));
+		draw->AddText({ pos.x + 8, pos.y + 400 }, ImColor(150, 158, 164, Sakura::Menu::currentAlphaFade), "sakura");
+		draw->AddText({ pos.x + 620 - privateBuildCalculated.x, pos.y + 400 }, ImColor(150, 158, 164, Sakura::Menu::currentAlphaFade), "private build");
 
 		ImGui::SetCursorPos({ 8, 2 });
 		ImGui::BeginGroup();
@@ -1021,20 +1005,20 @@ void DrawMenuWindow()
 		}
 		ImGui::EndGroup();
 
-		ImGui::SetCursorPos({ 10,68 });
+		ImGui::SetCursorPos({ 10,44 });
 		ImGui::BeginGroup();
 		{
 			DrawCategoryButtons();
 		}
 		ImGui::EndGroup();
 
-		ImGui::SetCursorPos({ 164,68 });
+		ImGui::SetCursorPos({ 164,44 });
 		ImGui::BeginGroup();
 		{
-			ImGui::BeginChild(/*##items*/XorStr<0x05, 8, 0x42ADB240>("\x26\x25\x6E\x7C\x6C\x67\x78" + 0x42ADB240).s, { 466, 324 });
+			ImGui::BeginChild(/*##items*/XorStr<0x05, 8, 0x42ADB240>("\x26\x25\x6E\x7C\x6C\x67\x78" + 0x42ADB240).s, { 466, 348 });
 			{
 				// 30, 35, 40
-				draw->AddRectFilled(ImGui::GetWindowPos(), { ImGui::GetWindowPos().x + 466,ImGui::GetWindowPos().y + 324 }, ImColor(25, 29, 33, Sakura::Menu::currentAlphaFade));
+				draw->AddRectFilled(ImGui::GetWindowPos(), { ImGui::GetWindowPos().x + 466,ImGui::GetWindowPos().y + 348 }, ImColor(25, 29, 33, Sakura::Menu::currentAlphaFade));
 
 				ImGui::PushFont(Sakura::Menu::Fonts::titleTabFont);
 				ImGui::SetCursorPos({ 10,10 });
