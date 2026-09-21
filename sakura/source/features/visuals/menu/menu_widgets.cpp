@@ -217,12 +217,12 @@ bool Sakura::Menu::Widgets::Checkbox(const char* label, float* v)
 	const ImGuiID id = window->GetID(label);
 	const ImVec2 label_size = ImGui::CalcTextSize(label, NULL, true);
 
-	float last_active_id_timer = g.LastActiveIdTimer;
 
-	const float square_sz = ImGui::GetFrameHeight();
+	const float square_sz = 11.0f;
+	const float row_height = 21.0f;
 	const ImVec2 pos = window->DC.CursorPos;
-	const ImRect total_bb(pos, ImVec2(pos.x + square_sz + (label_size.x > 0.0f ? style.ItemInnerSpacing.x + label_size.x : 0.0f), pos.y + label_size.y + style.FramePadding.y * 2.0f));
-	ImGui::ItemSize(total_bb, style.FramePadding.y);
+	const ImRect total_bb(pos, ImVec2(pos.x + square_sz + (label_size.x > 0.0f ? 7.0f + label_size.x : 0.0f), pos.y + row_height));
+	ImGui::ItemSize(total_bb, 0.0f);
 	if (!ImGui::ItemAdd(total_bb, id))
 		return false;
 
@@ -235,34 +235,19 @@ bool Sakura::Menu::Widgets::Checkbox(const char* label, float* v)
 		ImGui::MarkItemEdited(id);
 	}
 
-	const ImRect check_bb(pos, ImVec2(pos.x + square_sz, pos.y + square_sz));
+	const ImRect check_bb(ImVec2(pos.x, pos.y + (row_height - square_sz) * 0.5f), ImVec2(pos.x + square_sz, pos.y + (row_height + square_sz) * 0.5f));
 
-	if (g.LastActiveIdTimer == 0.0f && g.LastActiveId == g.CurrentWindow->GetID(label) && !pressed)
-		g.LastActiveIdTimer = last_active_id_timer;
-
-	float t = *v ? 1.0f : 0.0f;
-
-	float ANIM_SPEED = (ImGui::GetIO().Framerate / 8.f) * (1.f / ImGui::GetIO().Framerate);
-	if (g.LastActiveId == g.CurrentWindow->GetID(label))// && g.LastActiveIdTimer < ANIM_SPEED)
-	{
-		float t_anim = ImSaturate(g.LastActiveIdTimer / ANIM_SPEED);
-		t = *v ? (t_anim) : (1.0f - t_anim);
-	}
-
-	ImU32 col_bg = ImGui::GetColorU32(ImVec4(120 / 255.f, 120 / 255.f, 120 / 255.f, 120 / 255.f));
-	ImU32 col_bg2 = ImGui::GetColorU32(ImLerp(ImVec4(190 / 255.f, 190 / 255.f, 190 / 255.f, 0.f), ImVec4(GetMenuColor()), t));
-	ImU32 col_bg3 = ImGui::GetColorU32(ImLerp(ImVec4(190 / 255.f, 190 / 255.f, 190 / 255.f, 0.f), ImVec4(1.f, 1.f, 1.f, 1.f), t));
-
-	window->DrawList->AddRect(check_bb.Min, check_bb.Max, col_bg, 4.f, 15, 2.f);
-	window->DrawList->AddRectFilled(check_bb.Min, check_bb.Max, col_bg2, 4.f);
 
 	if (*v)
 	{
-		Sakura::Menu::Widgets::Helpers::RenderCheckMar1k(ImVec2{ check_bb.Min.x + 4,check_bb.Min.y + 4 }, col_bg3, square_sz - 8);
+		window->DrawList->AddRectFilledMultiColor(check_bb.Min, check_bb.Max,
+			ImColor(88, 127, 167, Sakura::Menu::currentAlphaFade), ImColor(88, 127, 167, Sakura::Menu::currentAlphaFade),
+			ImColor(49, 87, 125, Sakura::Menu::currentAlphaFade), ImColor(49, 87, 125, Sakura::Menu::currentAlphaFade));
+		window->DrawList->AddRect(check_bb.Min, check_bb.Max, ImColor(65, 105, 142, Sakura::Menu::currentAlphaFade));
 	}
 
 	if (label_size.x > 0.0f)
-		ImGui::RenderText(ImVec2(check_bb.Max.x + style.ItemInnerSpacing.x, check_bb.Min.y + style.FramePadding.y), label);
+		ImGui::RenderText(ImVec2(check_bb.Max.x + 7.0f, pos.y + (row_height - label_size.y) * 0.5f), label);
 
 	return pressed;
 }
